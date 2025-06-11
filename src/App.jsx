@@ -7,8 +7,14 @@ import { Products } from './data/Products';
 const App = () => {
   const [show, setShow] = useState(false);
   const [product, setProduct] = useState(Products);
+  const [Showedit, SetShowEdit] = useState(false);
+
   const showAddProduct = () => {
     setShow((prevShow) => !prevShow);
+  };
+
+  const showEditProduct = () => {
+    SetShowEdit((prevShowEdit) => !prevShowEdit);
   };
 
   const handleAddProduct = (newData) => {
@@ -36,6 +42,8 @@ const App = () => {
       <div className="cards">
         {product.map((item) => (
           <ProductCard
+            showEditProduct={showEditProduct}
+            Showedit={Showedit}
             key={item.id}
             nama={item.nama}
             deskripsi={item.deskripsi}
