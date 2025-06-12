@@ -7,19 +7,39 @@ import { Products } from './data/Products';
 const App = () => {
   const [show, setShow] = useState(false);
   const [product, setProduct] = useState(Products);
-  const [Showedit, SetShowEdit] = useState(false);
+  const [selectedEditId, setSelectedEditId] = useState(null);
 
   const showAddProduct = () => {
     setShow((prevShow) => !prevShow);
   };
 
-  const showEditProduct = () => {
-    SetShowEdit((prevShowEdit) => !prevShowEdit);
+  const showEditProduct = (id) => {
+    setSelectedEditId(id);
+  };
+
+  const closeEditProduct = () => {
+    setSelectedEditId(null);
   };
 
   const handleAddProduct = (newData) => {
     setProduct((product) => [...product, newData]);
     setShow(false);
+  };
+
+  const handleEditProduct = (id, formData) => {
+    setProduct((prevProducts) =>
+      prevProducts.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              nama: formData.nama,
+              deskripsi: formData.deskripsi,
+              imageURL: formData.url,
+            }
+          : item
+      )
+    );
+    setSelectedEditId(null);
   };
 
   return (
@@ -40,14 +60,17 @@ const App = () => {
         )}
       </div>
       <div className="cards">
-        {product.map((item) => (
+        {product.map(({ id, deskripsi, nama, imageURL }) => (
           <ProductCard
+            key={id}
+            id={id}
+            deskripsi={deskripsi}
+            nama={nama}
+            url={imageURL}
+            isEditing={selectedEditId === id}
             showEditProduct={showEditProduct}
-            Showedit={Showedit}
-            key={item.id}
-            nama={item.nama}
-            deskripsi={item.deskripsi}
-            url={item.imageURL}
+            handleEditProduct={handleEditProduct}
+            closeEditProduct={closeEditProduct}
           />
         ))}
       </div>

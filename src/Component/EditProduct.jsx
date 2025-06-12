@@ -6,7 +6,7 @@ const initialData = {
   url: '',
 };
 
-const EditProduct = ({ showEditProduct }) => {
+const EditProduct = ({ closeEditProduct, id, handleEditProduct }) => {
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
@@ -16,11 +16,7 @@ const EditProduct = ({ showEditProduct }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newData = {
-      ...formData,
-      id: Date.now(),
-    };
-    // handleAddProduct(newData);
+    handleEditProduct(id, formData);
     setFormData(initialData);
   };
   return (
@@ -59,7 +55,7 @@ const EditProduct = ({ showEditProduct }) => {
           ></input>
           {/* <button onClick={showEditProduct}>submit</button> */}
           <input type="submit"></input>
-          <button onClick={showEditProduct}>Cancel</button>
+          <button onClick={closeEditProduct}>Cancel</button>
         </form>
       </div>
     </div>

@@ -3,7 +3,16 @@ import { Trash2 } from 'lucide-react';
 import EditProduct from './EditProduct';
 import { Pencil } from 'lucide-react';
 
-const ProductCard = ({ nama, deskripsi, url, showEditProduct, Showedit }) => {
+const ProductCard = ({
+  id,
+  nama,
+  deskripsi,
+  url,
+  showEditProduct,
+  isEditing,
+  handleEditProduct,
+  closeEditProduct,
+}) => {
   const [amount, setAmount] = useState(0);
 
   const addAmount = () => {
@@ -17,13 +26,17 @@ const ProductCard = ({ nama, deskripsi, url, showEditProduct, Showedit }) => {
   };
   return (
     <div className="card">
-      {Showedit ? (
+      {isEditing ? (
         <>
-          <EditProduct showEditProduct={showEditProduct} />
+          <EditProduct
+            id={id}
+            handleEditProduct={handleEditProduct}
+            closeEditProduct={closeEditProduct}
+          />
         </>
       ) : (
         <>
-          <Pencil onClick={showEditProduct} />
+          <Pencil onClick={() => showEditProduct(id)} />
           <div className="card">
             <img className="card-img" alt="gambar" src={url}></img>
             <div className="container">
