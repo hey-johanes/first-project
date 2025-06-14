@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const initialData = {
   nama: '',
   deskripsi: '',
-  harga: 0,
+  harga: null,
   url: '',
 };
 
