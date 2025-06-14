@@ -26,6 +26,10 @@ const App = () => {
     setShow(false);
   };
 
+  const handleDeleteProduct = (id) => {
+    setProduct((prevProducts) => prevProducts.filter((item) => item.id !== id));
+  };
+
   const handleEditProduct = (id, formData) => {
     setProduct((prevProducts) =>
       prevProducts.map((item) =>
@@ -71,6 +75,7 @@ const App = () => {
             showEditProduct={showEditProduct}
             handleEditProduct={handleEditProduct}
             closeEditProduct={closeEditProduct}
+            handleDeleteProduct={handleDeleteProduct}
           />
         ))}
       </div>

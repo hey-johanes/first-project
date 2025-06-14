@@ -1,7 +1,6 @@
 import { React, useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Pencil } from 'lucide-react';
 import EditProduct from './EditProduct';
-import { Pencil } from 'lucide-react';
 
 const ProductCard = ({
   id,
@@ -12,6 +11,7 @@ const ProductCard = ({
   isEditing,
   handleEditProduct,
   closeEditProduct,
+  handleDeleteProduct,
 }) => {
   const [amount, setAmount] = useState(0);
 
@@ -38,6 +38,7 @@ const ProductCard = ({
       ) : (
         <>
           <Pencil onClick={() => showEditProduct(id)} />
+          <Trash2 onClick={() => handleDeleteProduct(id)}></Trash2>
           <div className="card">
             <img className="card-img" alt="gambar" src={url}></img>
             <div className="container">
