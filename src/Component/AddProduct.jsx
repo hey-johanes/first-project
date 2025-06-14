@@ -3,6 +3,7 @@ import { React, useState } from 'react';
 const initialData = {
   nama: '',
   deskripsi: '',
+  harga: 0,
   url: '',
 };
 
@@ -48,6 +49,17 @@ const AddProduct = ({ handleAddProduct }) => {
           value={formData.deskripsi}
           onChange={handleChange}
         ></textarea>
+        <label htmlFor="harga">Harga</label>
+        <input
+          name="harga"
+          placeholder="Harga"
+          type="number"
+          maxLength={200}
+          rows={10}
+          required
+          value={formData.harga}
+          onChange={handleChange}
+        ></input>
         <label htmlFor="url">URL Gambar</label>
         <input
           name="url"

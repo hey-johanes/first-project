@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Trash2, Pencil } from 'lucide-react';
 import EditProduct from './EditProduct';
 
@@ -6,6 +6,7 @@ const ProductCard = ({
   id,
   nama,
   deskripsi,
+  harga,
   url,
   showEditProduct,
   isEditing,
@@ -14,6 +15,7 @@ const ProductCard = ({
   handleDeleteProduct,
 }) => {
   const [amount, setAmount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const addAmount = () => {
     setAmount((amount) => amount + 1);
@@ -24,6 +26,9 @@ const ProductCard = ({
   const defaulValue = () => {
     setAmount(0);
   };
+  useEffect(() => {
+    setTotalPrice(amount * harga);
+  }, [amount, harga]);
   return (
     <div className="card">
       {isEditing ? (
@@ -44,6 +49,12 @@ const ProductCard = ({
             <div className="container">
               <h4>{nama}</h4>
               <p>{deskripsi}</p>
+              <p>{harga}</p>
+              {amount > 0 ? (
+                <b>{`Total Harga ${nama}: Rp${totalPrice}`}</b>
+              ) : (
+                <></>
+              )}
               <div className={`card-keranjang`}>
                 {amount === 0 ? (
                   <button

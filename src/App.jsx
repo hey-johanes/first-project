@@ -37,6 +37,7 @@ const App = () => {
           ? {
               ...item,
               nama: formData.nama,
+              harga: formData.harga,
               deskripsi: formData.deskripsi,
               imageURL: formData.url,
             }
@@ -64,13 +65,14 @@ const App = () => {
         )}
       </div>
       <div className="cards">
-        {product.map(({ id, deskripsi, nama, imageURL }) => (
+        {product.map(({ id, deskripsi, nama, imageURL, harga }) => (
           <ProductCard
             key={id}
             id={id}
             deskripsi={deskripsi}
             nama={nama}
             url={imageURL}
+            harga={harga}
             isEditing={selectedEditId === id}
             showEditProduct={showEditProduct}
             handleEditProduct={handleEditProduct}
