@@ -29,6 +29,7 @@ const ProductCard = ({
       {isEditing ? (
         <>
           <EditProduct
+            defaulValue={defaulValue}
             id={id}
             handleEditProduct={handleEditProduct}
             closeEditProduct={closeEditProduct}

@@ -6,7 +6,12 @@ const initialData = {
   url: '',
 };
 
-const EditProduct = ({ closeEditProduct, id, handleEditProduct }) => {
+const EditProduct = ({
+  closeEditProduct,
+  id,
+  handleEditProduct,
+  defaulValue,
+}) => {
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
@@ -54,7 +59,7 @@ const EditProduct = ({ closeEditProduct, id, handleEditProduct }) => {
             onChange={handleChange}
           ></input>
           {/* <button onClick={showEditProduct}>submit</button> */}
-          <input type="submit"></input>
+          <input onClick={defaulValue} type="submit"></input>
           <button onClick={closeEditProduct}>Cancel</button>
         </form>
       </div>
