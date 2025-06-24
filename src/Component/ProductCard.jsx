@@ -1,19 +1,11 @@
 import { React, useState, useEffect } from 'react';
 import { Trash2, Pencil } from 'lucide-react';
 import EditProduct from './EditProduct';
+import { useProductContext } from '../context/ProductContext';
 
-const ProductCard = ({
-  id,
-  nama,
-  deskripsi,
-  harga,
-  url,
-  showEditProduct,
-  isEditing,
-  handleEditProduct,
-  closeEditProduct,
-  handleDeleteProduct,
-}) => {
+const ProductCard = ({ id, nama, deskripsi, harga, url, isEditing }) => {
+  const { showEditProduct, handleDeleteProduct } = useProductContext();
+
   const [amount, setAmount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -33,12 +25,7 @@ const ProductCard = ({
     <div className="card">
       {isEditing ? (
         <>
-          <EditProduct
-            defaulValue={defaulValue}
-            id={id}
-            handleEditProduct={handleEditProduct}
-            closeEditProduct={closeEditProduct}
-          />
+          <EditProduct defaulValue={defaulValue} id={id} />
         </>
       ) : (
         <>

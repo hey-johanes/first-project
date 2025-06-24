@@ -1,51 +1,11 @@
-import { React, useState } from 'react';
+import React from 'react';
 import './App.css';
 import ProductCard from './Component/ProductCard';
 import AddProduct from './Component/AddProduct';
-import { Products } from './data/Products';
+import { ProductProvider, useProductContext } from './context/ProductContext';
 
-const App = () => {
-  const [show, setShow] = useState(false);
-  const [product, setProduct] = useState(Products);
-  const [selectedEditId, setSelectedEditId] = useState(null);
-
-  const showAddProduct = () => {
-    setShow((prevShow) => !prevShow);
-  };
-
-  const showEditProduct = (id) => {
-    setSelectedEditId(id);
-  };
-
-  const closeEditProduct = () => {
-    setSelectedEditId(null);
-  };
-
-  const handleAddProduct = (newData) => {
-    setProduct((product) => [...product, newData]);
-    setShow(false);
-  };
-
-  const handleDeleteProduct = (id) => {
-    setProduct((prevProducts) => prevProducts.filter((item) => item.id !== id));
-  };
-
-  const handleEditProduct = (id, formData) => {
-    setProduct((prevProducts) =>
-      prevProducts.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              nama: formData.nama,
-              harga: formData.harga,
-              deskripsi: formData.deskripsi,
-              imageURL: formData.url,
-            }
-          : item
-      )
-    );
-    setSelectedEditId(null);
-  };
+const AppContext = () => {
+  const { show, product, selectedEditId, showAddProduct } = useProductContext();
 
   return (
     <div>
@@ -53,7 +13,7 @@ const App = () => {
         <div className="app-title">List Mobil</div>
         {show ? (
           <>
-            <AddProduct handleAddProduct={handleAddProduct}></AddProduct>
+            <AddProduct></AddProduct>
             <button className="button-add-product" onClick={showAddProduct}>
               Close Add Product
             </button>
@@ -74,14 +34,18 @@ const App = () => {
             url={imageURL}
             harga={harga}
             isEditing={selectedEditId === id}
-            showEditProduct={showEditProduct}
-            handleEditProduct={handleEditProduct}
-            closeEditProduct={closeEditProduct}
-            handleDeleteProduct={handleDeleteProduct}
           />
         ))}
       </div>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <ProductProvider>
+      <AppContext />
+    </ProductProvider>
   );
 };
 

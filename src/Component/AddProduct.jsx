@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { useProductContext } from '../context/ProductContext';
 
 const initialData = {
   nama: '',
@@ -7,7 +8,8 @@ const initialData = {
   url: '',
 };
 
-const AddProduct = ({ handleAddProduct }) => {
+const AddProduct = () => {
+  const { handleAddProduct } = useProductContext();
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
@@ -69,7 +71,6 @@ const AddProduct = ({ handleAddProduct }) => {
           value={formData.url}
           onChange={handleChange}
         ></input>
-        <input type="reset"></input>
         <input type="submit"></input>
       </form>
     </div>

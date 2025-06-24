@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useProductContext } from '../context/ProductContext';
 
 const initialData = {
   nama: '',
@@ -7,12 +8,8 @@ const initialData = {
   url: '',
 };
 
-const EditProduct = ({
-  closeEditProduct,
-  id,
-  handleEditProduct,
-  defaulValue,
-}) => {
+const EditProduct = ({ id, defaulValue }) => {
+  const { handleEditProduct, closeEditProduct } = useProductContext();
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
