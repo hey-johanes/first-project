@@ -1,13 +1,29 @@
 /* eslint-disable prettier/prettier */
-import { useState, useContext, createContext } from 'react';
-import { Products } from '../data/Products';
+import { useState, useContext, createContext, useEffect } from 'react';
+import axios from 'axios';
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [show, setShow] = useState(false);
-  const [product, setProduct] = useState(Products);
+  const [product, setProduct] = useState([]);
   const [selectedEditId, setSelectedEditId] = useState(null);
+
+  useEffect(() => {
+    async function fetchApi() {
+      await axios
+        .get('http://localhost:8000/products')
+        .then(function (response) {
+          setProduct(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error.toJson());
+        });
+    }
+
+    fetchApi();
+  }, []);
 
   const showAddProduct = () => {
     setShow((prevShow) => !prevShow);
