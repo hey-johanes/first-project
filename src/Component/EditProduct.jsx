@@ -5,12 +5,14 @@ const initialData = {
   nama: '',
   deskripsi: '',
   harga: null,
-  url: '',
+  imageURL: '',
 };
 
 const EditProduct = ({ id, defaulValue }) => {
   const { handleEditProduct, closeEditProduct } = useProductContext();
   const [formData, setFormData] = useState(initialData);
+
+  const { nama, deskripsi, harga, imageURL } = formData;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +35,7 @@ const EditProduct = ({ id, defaulValue }) => {
             type="text"
             maxLength={30}
             required
-            value={formData.nama}
+            value={nama}
             onChange={handleChange}
           ></input>
           <label htmlFor="deskripsi">Deskripsi</label>
@@ -44,7 +46,7 @@ const EditProduct = ({ id, defaulValue }) => {
             maxLength={200}
             rows={10}
             required
-            value={formData.deskripsi}
+            value={deskripsi}
             onChange={handleChange}
           ></textarea>
           <label htmlFor="harga">Harga</label>
@@ -55,16 +57,16 @@ const EditProduct = ({ id, defaulValue }) => {
             maxLength={200}
             rows={10}
             required
-            value={formData.harga}
+            value={harga}
             onChange={handleChange}
           ></input>
           <label htmlFor="url">URL Gambar</label>
           <input
-            name="url"
+            name="imageURL"
             placeholder="URL"
             type="text"
             required
-            value={formData.url}
+            value={imageURL}
             onChange={handleChange}
           ></input>
           {/* <button onClick={showEditProduct}>submit</button> */}

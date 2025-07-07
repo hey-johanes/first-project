@@ -21,7 +21,7 @@ const AddProduct = () => {
     e.preventDefault();
     const newData = {
       ...formData,
-      id: Date.now(),
+      id: Date.now().toString,
     };
     handleAddProduct(newData);
     setFormData(initialData);

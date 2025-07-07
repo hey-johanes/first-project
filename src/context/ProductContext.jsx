@@ -11,17 +11,13 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchApi() {
-      await axios
-        .get('http://localhost:8000/products')
-        .then(function (response) {
-          setProduct(response.data);
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          console.log(error.toJson());
-        });
+      try {
+        const response = await axios.get('http://localhost:8000/products');
+        setProduct(response.data);
+      } catch (error) {
+        console.log(error.toJson());
+      }
     }
-
     fetchApi();
   }, []);
 
@@ -38,29 +34,57 @@ export const ProductProvider = ({ children }) => {
   };
 
   const handleAddProduct = (newData) => {
-    setProduct((product) => [...product, newData]);
-    setShow(false);
+    const postProduct = async () => {
+      try {
+        await axios.post('http://localhost:8000/products', newData);
+        setProduct((product) => [...product, newData]);
+        setShow(false);
+      } catch (error) {
+        console.log(error.response.error);
+      }
+    };
+
+    postProduct();
   };
 
   const handleDeleteProduct = (id) => {
-    setProduct((prevProducts) => prevProducts.filter((item) => item.id !== id));
+    const deleteProduct = async () => {
+      try {
+        await axios.delete(`http://localhost:8000/products/${id}`);
+        setProduct((prevProducts) =>
+          prevProducts.filter((item) => item.id !== id)
+        );
+      } catch (error) {
+        console.log(error.response.error);
+      }
+    };
+    deleteProduct();
   };
 
   const handleEditProduct = (id, formData) => {
-    setProduct((prevProducts) =>
-      prevProducts.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              nama: formData.nama,
-              harga: formData.harga,
-              deskripsi: formData.deskripsi,
-              imageURL: formData.url,
-            }
-          : item
-      )
-    );
-    setSelectedEditId(null);
+    const editProduct = async () => {
+      try {
+        await axios.patch(`http://localhost:8000/products/${id}`, formData);
+        setProduct((prevProducts) =>
+          prevProducts.map((item) =>
+            item.id === id
+              ? {
+                  ...item,
+                  nama: formData.nama,
+                  harga: formData.harga,
+                  deskripsi: formData.deskripsi,
+                  imageURL: formData.url,
+                }
+              : item
+          )
+        );
+        setSelectedEditId(null);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    editProduct();
   };
 
   const value = {
