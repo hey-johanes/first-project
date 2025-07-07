@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { useProductContext } from '../context/ProductContext';
 
-const initialData = {
-  nama: '',
-  deskripsi: '',
-  harga: null,
-  imageURL: '',
-};
-
-const EditProduct = ({ id, defaulValue }) => {
+const EditProduct = ({ id, nama, deskripsi, harga, url, defaulValue }) => {
   const { handleEditProduct, closeEditProduct } = useProductContext();
-  const [formData, setFormData] = useState(initialData);
-
-  const { nama, deskripsi, harga, imageURL } = formData;
+  const [formData, setFormData] = useState({
+    nama: nama,
+    deskripsi: deskripsi,
+    harga: harga,
+    imageURL: url,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +18,6 @@ const EditProduct = ({ id, defaulValue }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEditProduct(id, formData);
-    setFormData(initialData);
   };
   return (
     <div>
@@ -35,7 +30,7 @@ const EditProduct = ({ id, defaulValue }) => {
             type="text"
             maxLength={30}
             required
-            value={nama}
+            value={formData.nama}
             onChange={handleChange}
           ></input>
           <label htmlFor="deskripsi">Deskripsi</label>
@@ -46,7 +41,7 @@ const EditProduct = ({ id, defaulValue }) => {
             maxLength={200}
             rows={10}
             required
-            value={deskripsi}
+            value={formData.deskripsi}
             onChange={handleChange}
           ></textarea>
           <label htmlFor="harga">Harga</label>
@@ -57,7 +52,7 @@ const EditProduct = ({ id, defaulValue }) => {
             maxLength={200}
             rows={10}
             required
-            value={harga}
+            value={formData.harga}
             onChange={handleChange}
           ></input>
           <label htmlFor="url">URL Gambar</label>
@@ -66,10 +61,9 @@ const EditProduct = ({ id, defaulValue }) => {
             placeholder="URL"
             type="text"
             required
-            value={imageURL}
+            value={formData.imageURL}
             onChange={handleChange}
           ></input>
-          {/* <button onClick={showEditProduct}>submit</button> */}
           <input onClick={defaulValue} type="submit"></input>
           <button onClick={closeEditProduct}>Cancel</button>
         </form>

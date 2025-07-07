@@ -25,7 +25,14 @@ const ProductCard = ({ id, nama, deskripsi, harga, url, isEditing }) => {
     <div className="card">
       {isEditing ? (
         <>
-          <EditProduct defaulValue={defaulValue} id={id} />
+          <EditProduct
+            defaulValue={defaulValue}
+            id={id}
+            nama={nama}
+            deskripsi={deskripsi}
+            harga={harga}
+            url={url}
+          />
         </>
       ) : (
         <>
